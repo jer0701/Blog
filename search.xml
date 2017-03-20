@@ -4,6 +4,81 @@
   
     
     <entry>
+      <title><![CDATA[Canvas]]></title>
+      <url>http://yuanjer.com/2017/03/20/Canvas/</url>
+      <content type="html"><![CDATA[<p>HTML5添加的最受欢迎的功能就是canvas元素</p>
+<p>今天我就来学习学习它。</p>
+<a id="more"></a>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>与浏览器环境中的其他组件类似，canvas由几组API构成，但非所有的浏览器都支持这些API。除了具备基本绘制能力的2D上下文，还有个WebGL的3D上下文。</p>
+<p>要使用canvas元素，必须先设置其width和height属性，指定绘图的区域大小。出现在开始和结束标签中的内容是后备信息，如果浏览器不支持canvas元素，就会显示这些信息。如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"drawing"</span> <span class="attr">width</span>=<span class="string">"200"</span> <span class="attr">height</span>=<span class="string">"200"</span>&gt;</span>Info<span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>要在这块画布（canvas）上绘图，需要获得绘图上下文。通过getContext()方法调用,</p>
+<p>传入“2d”，就可以获得2D上下文对象,如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> draw = <span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</div><div class="line"><span class="keyword">if</span> (draw.getContext) &#123; <span class="comment">//判断浏览器是否支持canvas元素</span></div><div class="line">	<span class="keyword">var</span> context = draw.getContext(<span class="string">"2d"</span>);</div><div class="line">  	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br><br></p>
+<p><br><br></p>
+<h3 id="2D上下文"><a href="#2D上下文" class="headerlink" title="2D上下文"></a>2D上下文</h3><p>使用2D绘图上下文提供的方法，可以绘制简单的2D图形，如矩形。2D上下文的坐标开始与canvas元素的左上角，坐标是(0,0)。所有坐标值基于这个点计算。</p>
+<h4 id="填充和描边"><a href="#填充和描边" class="headerlink" title="填充和描边"></a>填充和描边</h4><p>2D上下文两种基本的操作就是填充和描边。操作的属性是：fillStyle和strokeStyle。</p>
+<p>这两个属性的值默认都是“#000000”</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> context = draw.getContext(<span class="string">"2d"</span>);</div><div class="line">context.strokeStyle = <span class="string">"red"</span>;</div><div class="line">context.fillStyle = <span class="string">"#0000ff"</span>; <span class="comment">//蓝色</span></div></pre></td></tr></table></figure>
+<p><br><br></p>
+<h4 id="绘制矩形"><a href="#绘制矩形" class="headerlink" title="绘制矩形"></a>绘制矩形</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//红色填充矩形</span></div><div class="line">context.fillStyle = <span class="string">"red"</span>;</div><div class="line">context.fillRect(<span class="number">10</span>, <span class="number">10</span>, <span class="number">50</span>, <span class="number">50</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//红色描边矩形</span></div><div class="line">context.strokeStyle = <span class="string">"red"</span>;</div><div class="line">context.strokeRect(<span class="number">10</span>, <span class="number">10</span>, <span class="number">50</span>, <span class="number">50</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//在两个矩形重叠的地方清除一个小矩形</span></div><div class="line">context.fillStyle = <span class="string">"red"</span>;</div><div class="line">context.fillRect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">50</span>,<span class="number">50</span>);</div><div class="line">context.fillStyle = <span class="string">"rgba(0, 0, 255, 0.5)"</span>;</div><div class="line">context.fillRect(<span class="number">30</span>,<span class="number">30</span>,<span class="number">50</span>,<span class="number">50</span>);</div><div class="line">context.clearRect(<span class="number">40</span>, <span class="number">40</span>, <span class="number">10</span>, <span class="number">10</span>);</div></pre></td></tr></table></figure>
+<p><br><br></p>
+<h4 id="绘制路径"><a href="#绘制路径" class="headerlink" title="绘制路径"></a>绘制路径</h4><p>要绘制路径，首先必须调用beginPath()方法，表示要开始绘制新路径了。</p>
+<p>绘制路有很多方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">arc(x, y, radius, startAngle, endAngle, counterclockwise)</div><div class="line">arcTo(x1, y1, x2, y2, radius)</div><div class="line">bezierCurveTo(c1x, c1y, c2x, c2y, x, y)<span class="comment">//绘制曲线，到x,y为止,途经c1,c2</span></div><div class="line">lineTo(x, y)</div><div class="line">moveTo(x, y)<span class="comment">//移动光标，不画线</span></div><div class="line">rect(x, y, width, height)</div></pre></td></tr></table></figure>
+<p>看如下例子，绘制不带数字的时钟</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//开始路径</span></div><div class="line">context.beginPath();</div><div class="line"><span class="comment">//绘制外圆</span></div><div class="line">context.arc(<span class="number">100</span>, <span class="number">100</span>, <span class="number">99</span>, <span class="number">0</span>, <span class="number">2</span>*<span class="built_in">Math</span>.PI, <span class="literal">false</span>);</div><div class="line"><span class="comment">//绘制内圆</span></div><div class="line">context.moveTo(<span class="number">194</span>, <span class="number">100</span>);</div><div class="line">context.arc(<span class="number">100</span>, <span class="number">100</span>, <span class="number">94</span>, <span class="number">0</span>, <span class="number">2</span>*<span class="built_in">Math</span>.PI, <span class="literal">false</span>);</div><div class="line"><span class="comment">//绘制分针</span></div><div class="line">context.moveTo(<span class="number">100</span>, <span class="number">100</span>);</div><div class="line">context.lineTo(<span class="number">100</span>, <span class="number">15</span>);</div><div class="line"><span class="comment">//绘制时针</span></div><div class="line">context.moveTo(<span class="number">100</span>, <span class="number">100</span>);</div><div class="line">context.lineTo(<span class="number">35</span>, <span class="number">100</span>);</div><div class="line"><span class="comment">//描边刚刚画的路径</span></div><div class="line">context.stroke();</div></pre></td></tr></table></figure>
+<p><br><br></p>
+<h4 id="绘制文本"><a href="#绘制文本" class="headerlink" title="绘制文本"></a>绘制文本</h4><p>绘制文本有两个方法：fillText() 和strokeText()。这两个方法都可以接收四个参数：要绘制的字符串、x坐标、y坐标和可选的最大像素宽度。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">context.font = <span class="string">"blod 14px Microsoft"</span>;</div><div class="line">context.textAlign = <span class="string">"center"</span>;</div><div class="line">context.textBaseLine = <span class="string">"middle"</span>;</div><div class="line">context.fillText(<span class="string">"12"</span>, <span class="number">100</span>, <span class="number">20</span>);</div></pre></td></tr></table></figure>
+<p><br><br></p>
+<h4 id="变换"><a href="#变换" class="headerlink" title="变换"></a>变换</h4><p>变换就是使用不同的变换矩阵处理图像，有如下变换矩阵：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">rotate(angle) <span class="comment">//围绕原点旋转</span></div><div class="line">scale(scaleX, scaleY) <span class="comment">//x,轴缩放</span></div><div class="line">translate(x, y) <span class="comment">//将原点坐标移到x,y，即(x,y)代表原点</span></div><div class="line">transform(m1_1, m1_2, m2_1, m2_2, dx, dy) <span class="comment">//自定义修改矩阵</span></div><div class="line">setTransform(m1_1, m1_2, m2_1, m2_2, dx, dy) <span class="comment">//先把矩阵恢复默认再进行transform</span></div></pre></td></tr></table></figure>
+<p><br><br></p>
+<h4 id="绘制图像"><a href="#绘制图像" class="headerlink" title="绘制图像"></a>绘制图像</h4><p>使用drawImage()方法就可以把图像绘制到画布上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">drawImage(image, x, y) <span class="comment">//参数不固定，可以更多</span></div></pre></td></tr></table></figure>
+<p><br><br></p>
+<h4 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h4><p>2D上下文会根据以下几个属性的值，自动为形状或路径绘制出阴影</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">shadowColor: 用CSS颜色格式表示阴影颜色，默认黑色</div><div class="line">shadowOffsetX: x轴方向阴影偏移量，默认为<span class="number">0</span></div><div class="line">shadowOffsetY: Y轴方向阴影偏移量，默认为<span class="number">0</span></div><div class="line">shadowBlur: 模糊的像素数，默认为<span class="number">0</span>，即不模糊</div></pre></td></tr></table></figure>
+<p>这些属性可以通过context对象来修改，只要在绘制之前设置合适的值，就能自动产生阴影。例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">context.shadowOffsetX = <span class="number">5</span>;</div><div class="line">context.shadowOffsetY = <span class="number">5</span>;</div><div class="line">context.Blur = <span class="number">4</span>;</div><div class="line">context.shadowColor = <span class="string">"rgba(0, 0, 0, 0.5)"</span>;</div><div class="line"></div><div class="line">context.fillStyle = <span class="string">"red"</span>;</div><div class="line">context.fillRect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">50</span>,<span class="number">50</span>);</div></pre></td></tr></table></figure>
+<p><br><br></p>
+<h4 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h4><p>渐变有CanvasGradient实例表示。</p>
+<p>Context对象可以通过createLinearGradient()和createRadialGradient()两个方法创建渐变对象，这两个方法的参数如下：</p>
+<p><strong>createLinearGradient(x1, y1, x2, y2);</strong></p>
+<p>创建一个从(x1, y1)点到(x2, y2)点的<strong>线性</strong>渐变对象。</p>
+<p><strong>createRadialGradient(x1, y1, r1, x2, y2, r2);</strong></p>
+<p>创建一个从以(x1, y1)点为圆心、r1为半径的圆到以(x2, y2)点为圆心、r2为半径的圆的<strong>径向</strong>渐变对象。</p>
+<p>渐变对象创建完成之后必须使用它的addColorStop()方法来添加颜色，该方法的使用如下：</p>
+<p><strong>addColorStop(position, color);</strong></p>
+<p>其中position表示添加颜色的位置，取值范围为[0, 1]，0表示起点，1表示终点；color表示添加的颜色，取值可以是任何CSS颜色值。</p>
+<p>渐变对象创建并配置完成之后就可以将其赋予Context对象的strokeStyle属性或者fillStyle属性，然后绘制的图形就具有了所需的渐变效果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gradient = context.createLinearGradient(<span class="number">30</span>, <span class="number">30</span>, <span class="number">70</span>, <span class="number">70</span>);</div><div class="line">gradient.addColorStop(<span class="number">0</span>, <span class="string">"white"</span>);</div><div class="line">gradient.addColorStop(<span class="number">1</span>, <span class="string">"black"</span>);</div><div class="line"></div><div class="line">context.fillStyle = gradient; <span class="comment">//赋值给fillStyle属性</span></div><div class="line">context.fillRect(<span class="number">30</span>, <span class="number">30</span>, <span class="number">50</span>, <span class="number">50</span>);</div></pre></td></tr></table></figure>
+<p><br><br></p>
+<h4 id="图像数据"><a href="#图像数据" class="headerlink" title="图像数据"></a>图像数据</h4><p>2D上下文的一个明显长处就是，可以通过getImageData()获取原始图像数据。这个方法接收四个参数：要获取器数据的画面区域的x、y坐标已经该区域的像素宽度和高度。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//取得左上角坐标为(10,5)，大小为50 x 50像素的区域的图像数据</span></div><div class="line"><span class="keyword">var</span> imageData = context.getImageData(<span class="number">10</span>, <span class="number">5</span>, <span class="number">50</span>, <span class="number">50</span>);</div></pre></td></tr></table></figure>
+<p>上述代码返回的对象是ImageData的实例。每个ImageData对象有三个属性：width、height和data。其中data是一个数组，保存着图像每个像素的数据，分别是四个元素：红、绿、蓝和透明度值。例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = imageData.data,</div><div class="line">    red = data[<span class="number">0</span>],</div><div class="line">    green = data[<span class="number">1</span>],</div><div class="line">    blue = data[<span class="number">2</span>],</div><div class="line">    alpha = data[<span class="number">3</span>];</div></pre></td></tr></table></figure>
+<p><br><br></p>
+<p><br><br></p>
+<p>好了，到这里对canvas 2D上下文的基本用法就有了一定的了解，另外还有两个有意思的属性：globalAlpha和globalCompositionOperation，可去测试一下。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> canvas </tag>
+            
+            <tag> javascript </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[React]]></title>
       <url>http://yuanjer.com/2017/03/20/React/</url>
       <content type="html"><![CDATA[<p>最近在学习React框架，这是前端最热门框架之一了。</p>
