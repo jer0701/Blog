@@ -4,6 +4,51 @@
   
     
     <entry>
+      <title><![CDATA[React]]></title>
+      <url>http://yuanjer.com/2017/03/20/React/</url>
+      <content type="html"><![CDATA[<p>最近在学习React框架，这是前端最热门框架之一了。</p>
+<p>碰到过一些坑，在这里记录下来。</p>
+<a id="more"></a>
+<h3 id="React入门"><a href="#React入门" class="headerlink" title="React入门"></a>React入门</h3><p>React是Facebook开源的项目，是一套性能比较好的框架。为什么呢，因为采取虚拟DOM技术，通过对DOM的模拟，最大限度地减少与DOM的交互。</p>
+<p>React代码逻辑比较简单，如果不会的推荐可以看一看阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank" rel="external">入门教程</a></p>
+<h3 id="React-Router"><a href="#React-Router" class="headerlink" title="React Router"></a>React Router</h3><p>接下来我讲讲碰到的坑了，没错，就是react路由的坑</p>
+<p>react router上手也容易，大家可以去看阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2016/05/react_router.html?utm_source=tool.lu" target="_blank" rel="external">教程</a></p>
+<p>我在代码中是这样使用的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;Router, Route, IndexRoute, hashHistory&#125; <span class="keyword">from</span> <span class="string">'react-router'</span></div><div class="line">...</div><div class="line">ReactDOM.render(</div><div class="line">     (&lt;Router history=&#123;hashHistory&#125;&gt;</div><div class="line">        &lt;Route path='/' component=&#123;App&#125; &gt;</div><div class="line">            &lt;IndexRoute component=&#123;Gallery&#125;/&gt;</div><div class="line">            &lt;Route path='/calculator' component=&#123;Calculator&#125; /&gt;</div><div class="line">        &lt;/Route&gt;</div><div class="line">    &lt;/Router&gt;),</div><div class="line">    document.getElementById('app')</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>因为是本地静态页面，所以使用hashHistory。</p>
+<p>项目采用yoman脚手架搭建，react router安装是使用如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -S react-router</div></pre></td></tr></table></figure>
+<p>然后npm start运行项目，发现报错了，如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Uncaught TypeError: Cannot <span class="built_in">read</span> property <span class="string">'location'</span> of undefined</div></pre></td></tr></table></figure>
+<p>location未定义</p>
+<p>可是location是history的呀如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">match:r.computeMatch(r.props.history.location.pathname)</div></pre></td></tr></table></figure>
+<p>history等于hashHistory，react-router定义的，怎么会报错呢，郁闷呀。</p>
+<p>开始以为是我的代码写错了，然后就去写了个demo，如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;script src=&quot;../build/react.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;../build/react-dom.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;../build/browser.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;../build/react-router.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;div id=&quot;example&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;script type=&quot;text/babel&quot;&gt;</div><div class="line">		var Link = ReactRouter.Link;</div><div class="line"> 	var IndexLink = ReactRouter.IndexLink;</div><div class="line"> 	var Router = ReactRouter.Router;</div><div class="line"> 	var Route = ReactRouter.Route;</div><div class="line"> 	var IndexRoute = ReactRouter.IndexRoute;</div><div class="line"> 	var hashHistory = ReactRouter.hashHistory;</div><div class="line">	</div><div class="line">	var App = React.createClass(&#123;</div><div class="line"> 			render : function()&#123;</div><div class="line"> 				return (</div><div class="line"> 					&lt;div className=&quot;container&quot;&gt;</div><div class="line">					Hello world!</div><div class="line"> 					&lt;/div&gt;</div><div class="line"> 				)</div><div class="line"> 			&#125;</div><div class="line"> 		&#125;)</div><div class="line"></div><div class="line">      ReactDOM.render(</div><div class="line">        &lt;Router history=&#123;hashHistory&#125;&gt;</div><div class="line"> 			    &lt;Route path=&quot;/&quot; component=&#123;App&#125;&gt;</div><div class="line"> 			     </div><div class="line"> 			    &lt;/Route&gt;</div><div class="line"> 		    &lt;/Router&gt;,</div><div class="line">        document.getElementById(&apos;example&apos;)</div><div class="line">      );</div><div class="line">    &lt;/script&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>测试发现是OK的，页面显示正常。</p>
+<p>但是修改一下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../build/react-router.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>  修改成</div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.bootcss.com/react-router/4.0.0/react-router.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>然后在测试，发现报一样的错了。</p>
+<p>原来我项目中安装react-router是安装最新的4.0的版本</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="string">"dependencies"</span>: &#123;</div><div class="line">    <span class="string">"core-js"</span>: <span class="string">"^2.0.0"</span>,</div><div class="line">    <span class="string">"normalize.css"</span>: <span class="string">"^4.0.0"</span>,</div><div class="line">    <span class="string">"react"</span>: <span class="string">"^15.0.0"</span>,</div><div class="line">    <span class="string">"react-addons-css-transition-group"</span>: <span class="string">"^15.4.2"</span>,</div><div class="line">    <span class="string">"react-dom"</span>: <span class="string">"^15.0.0"</span>,</div><div class="line">    <span class="string">"react-router"</span>: <span class="string">"^4.0.0"</span></div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>手动改为”^3.0.0”再npm install生成就OK了。</p>
+<p>4.0版本改动比较大，大家可以看下<a href="https://zhuanlan.zhihu.com/p/22490775" target="_blank" rel="external">这篇文章</a></p>
+<p>好了，今天就记录到这吧.</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> React </tag>
+            
+            <tag> React-Router </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[My first blog]]></title>
       <url>http://yuanjer.com/2017/03/19/My-first-blog/</url>
       <content type="html"><![CDATA[<p>这是我的第一篇博客，也代表着我走向<strong>前端</strong>的起点</p>

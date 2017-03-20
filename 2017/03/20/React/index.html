@@ -6,17 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yuanjer.com">
-  <title>Tag: hexo | Jer</title>
+  <title>React | Jer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="路途遥远，勿忘初心">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jer">
-<meta property="og:url" content="http://yuanjer.com/tags/hexo/index.html">
+  <meta name="description" content="最近在学习React框架，这是前端最热门框架之一了。
+碰到过一些坑，在这里记录下来。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React">
+<meta property="og:url" content="http://yuanjer.com/2017/03/20/React/index.html">
 <meta property="og:site_name" content="Jer">
-<meta property="og:description" content="路途遥远，勿忘初心">
+<meta property="og:description" content="最近在学习React框架，这是前端最热门框架之一了。
+碰到过一些坑，在这里记录下来。">
+<meta property="og:updated_time" content="2017-03-20T12:20:38.139Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jer">
-<meta name="twitter:description" content="路途遥远，勿忘初心">
+<meta name="twitter:title" content="React">
+<meta name="twitter:description" content="最近在学习React框架，这是前端最热门框架之一了。
+碰到过一些坑，在这里记录下来。">
   
     <link rel="alternative" href="/atom.xml" title="Jer" type="application/atom+xml">
   
@@ -150,64 +154,160 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-React" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/19/My-first-blog/" class="archive-article-date">
-  	<time datetime="2017-03-19T09:05:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-19</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/19/My-first-blog/">My first blog</a>
+    <h1 class="article-title" itemprop="name">
+      React
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/03/20/React/" class="archive-article-date">
+  	<time datetime="2017-03-20T11:00:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在学习React框架，这是前端最热门框架之一了。</p>
+<p>碰到过一些坑，在这里记录下来。</p>
+<a id="more"></a>
+<h3 id="React入门"><a href="#React入门" class="headerlink" title="React入门"></a>React入门</h3><p>React是Facebook开源的项目，是一套性能比较好的框架。为什么呢，因为采取虚拟DOM技术，通过对DOM的模拟，最大限度地减少与DOM的交互。</p>
+<p>React代码逻辑比较简单，如果不会的推荐可以看一看阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank" rel="external">入门教程</a></p>
+<h3 id="React-Router"><a href="#React-Router" class="headerlink" title="React Router"></a>React Router</h3><p>接下来我讲讲碰到的坑了，没错，就是react路由的坑</p>
+<p>react router上手也容易，大家可以去看阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2016/05/react_router.html?utm_source=tool.lu" target="_blank" rel="external">教程</a></p>
+<p>我在代码中是这样使用的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;Router, Route, IndexRoute, hashHistory&#125; <span class="keyword">from</span> <span class="string">'react-router'</span></div><div class="line">...</div><div class="line">ReactDOM.render(</div><div class="line">     (&lt;Router history=&#123;hashHistory&#125;&gt;</div><div class="line">        &lt;Route path='/' component=&#123;App&#125; &gt;</div><div class="line">            &lt;IndexRoute component=&#123;Gallery&#125;/&gt;</div><div class="line">            &lt;Route path='/calculator' component=&#123;Calculator&#125; /&gt;</div><div class="line">        &lt;/Route&gt;</div><div class="line">    &lt;/Router&gt;),</div><div class="line">    document.getElementById('app')</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>因为是本地静态页面，所以使用hashHistory。</p>
+<p>项目采用yoman脚手架搭建，react router安装是使用如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -S react-router</div></pre></td></tr></table></figure>
+<p>然后npm start运行项目，发现报错了，如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Uncaught TypeError: Cannot <span class="built_in">read</span> property <span class="string">'location'</span> of undefined</div></pre></td></tr></table></figure>
+<p>location未定义</p>
+<p>可是location是history的呀如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">match:r.computeMatch(r.props.history.location.pathname)</div></pre></td></tr></table></figure>
+<p>history等于hashHistory，react-router定义的，怎么会报错呢，郁闷呀。</p>
+<p>开始以为是我的代码写错了，然后就去写了个demo，如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;script src=&quot;../build/react.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;../build/react-dom.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;../build/browser.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=&quot;../build/react-router.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;div id=&quot;example&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;script type=&quot;text/babel&quot;&gt;</div><div class="line">		var Link = ReactRouter.Link;</div><div class="line"> 	var IndexLink = ReactRouter.IndexLink;</div><div class="line"> 	var Router = ReactRouter.Router;</div><div class="line"> 	var Route = ReactRouter.Route;</div><div class="line"> 	var IndexRoute = ReactRouter.IndexRoute;</div><div class="line"> 	var hashHistory = ReactRouter.hashHistory;</div><div class="line">	</div><div class="line">	var App = React.createClass(&#123;</div><div class="line"> 			render : function()&#123;</div><div class="line"> 				return (</div><div class="line"> 					&lt;div className=&quot;container&quot;&gt;</div><div class="line">					Hello world!</div><div class="line"> 					&lt;/div&gt;</div><div class="line"> 				)</div><div class="line"> 			&#125;</div><div class="line"> 		&#125;)</div><div class="line"></div><div class="line">      ReactDOM.render(</div><div class="line">        &lt;Router history=&#123;hashHistory&#125;&gt;</div><div class="line"> 			    &lt;Route path=&quot;/&quot; component=&#123;App&#125;&gt;</div><div class="line"> 			     </div><div class="line"> 			    &lt;/Route&gt;</div><div class="line"> 		    &lt;/Router&gt;,</div><div class="line">        document.getElementById(&apos;example&apos;)</div><div class="line">      );</div><div class="line">    &lt;/script&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>测试发现是OK的，页面显示正常。</p>
+<p>但是修改一下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../build/react-router.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>  修改成</div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.bootcss.com/react-router/4.0.0/react-router.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>然后在测试，发现报一样的错了。</p>
+<p>原来我项目中安装react-router是安装最新的4.0的版本</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="string">"dependencies"</span>: &#123;</div><div class="line">    <span class="string">"core-js"</span>: <span class="string">"^2.0.0"</span>,</div><div class="line">    <span class="string">"normalize.css"</span>: <span class="string">"^4.0.0"</span>,</div><div class="line">    <span class="string">"react"</span>: <span class="string">"^15.0.0"</span>,</div><div class="line">    <span class="string">"react-addons-css-transition-group"</span>: <span class="string">"^15.4.2"</span>,</div><div class="line">    <span class="string">"react-dom"</span>: <span class="string">"^15.0.0"</span>,</div><div class="line">    <span class="string">"react-router"</span>: <span class="string">"^4.0.0"</span></div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>手动改为”^3.0.0”再npm install生成就OK了。</p>
+<p>4.0版本改动比较大，大家可以看下<a href="https://zhuanlan.zhihu.com/p/22490775" target="_blank" rel="external">这篇文章</a></p>
+<p>好了，今天就记录到这吧.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">blog</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">React-Router</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yuanjer.com/2017/03/20/React/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/03/19/My-first-blog/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">My first blog</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-    
+
 
 
           </div>
@@ -230,9 +330,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
