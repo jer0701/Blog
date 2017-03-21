@@ -6,17 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yuanjer.com">
-  <title>Archives: 2017 | Jer</title>
+  <title>React之通信 | Jer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="路途遥远，勿忘初心">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jer">
-<meta property="og:url" content="http://yuanjer.com/archives/2017/index.html">
+  <meta name="description" content="今天这篇文章的目的是总结我今天做项目碰到的问题
+方便以后查阅">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React之通信">
+<meta property="og:url" content="http://yuanjer.com/2017/03/21/React2/index.html">
 <meta property="og:site_name" content="Jer">
-<meta property="og:description" content="路途遥远，勿忘初心">
+<meta property="og:description" content="今天这篇文章的目的是总结我今天做项目碰到的问题
+方便以后查阅">
+<meta property="og:updated_time" content="2017-03-21T12:41:34.073Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jer">
-<meta name="twitter:description" content="路途遥远，勿忘初心">
+<meta name="twitter:title" content="React之通信">
+<meta name="twitter:description" content="今天这篇文章的目的是总结我今天做项目碰到的问题
+方便以后查阅">
   
     <link rel="alternative" href="/atom.xml" title="Jer" type="application/atom+xml">
   
@@ -150,36 +154,100 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-React2" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      React之通信
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/21/React2/" class="archive-article-date">
+
+        
+        <a href="/2017/03/21/React2/" class="archive-article-date">
   	<time datetime="2017-03-21T11:37:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-21</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/21/React2/">React之通信</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天这篇文章的目的是总结我今天做项目碰到的问题</p>
+<p>方便以后查阅</p>
+<a id="more"></a>
+<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>先描述一下需求，我想在父组件（Heart）中添加子组件（Shadow），且子组件有很多个。子组件（Shadow）其他内容都相同，就是Color不同，所以只要在Shadow render的时候添加不同的颜色样式就可以了。</p>
+<p><br><br></p>
+<h4 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h4><p>在父组件中有个button，每点击一次产生一个阴影即添加一个子组件。</p>
+<p>怎么控制呢？</p>
+<p>在父组件中添加一个state：shadows[]数组, 数组保存的是每一个子组件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">getInitialState: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">     <span class="keyword">return</span> &#123; <span class="attr">shadows</span>: [] &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当执行点击函数时，我们就push一个子组件进去，这样就可以点击一次添加一个子组件了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">handleClick: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">     <span class="keyword">var</span> temp = <span class="keyword">this</span>.state.shadows;</div><div class="line">     temp.push(<span class="xml"><span class="tag">&lt;<span class="name">Shadow</span> /&gt;</span>);</span></div><div class="line">     this.setState(&#123;shadows: temp&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br><br></p>
+<p><br><br></p>
+<h4 id="问题二"><a href="#问题二" class="headerlink" title="问题二"></a>问题二</h4><p>解决问题一之后就会出现第二个问题，就是每添加一个子组件，都会产生一个DOM节点，不断的点击，就会保存很多个相同的DOM节点，因为每个子组件出现的效果只会显示很短的时间，效果没了之后，这些节点没有存在的必要了，所以有必要在效果结束之后删除这些节点。</p>
+<p>问题来了，那么怎么删除呢？</p>
+<p>在这一步我卡了较久的时间，最开始想通过子组件自己删除自己，没有实现。。。</p>
+<p>最后发现，可以根据问题一的解决来实现，通过父组件来删除子组件！</p>
+<p>在问题一种，我们添加了一个state：shadows[]数组，那么我每次从数组中pop出或者shift出一个元素，那不就可以了么。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">clearShadow: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">           <span class="keyword">var</span> temp = <span class="keyword">this</span>.state.shadows;</div><div class="line">           temp.shift();</div><div class="line">           <span class="keyword">this</span>.setState(&#123;<span class="attr">shadows</span>: temp&#125;);</div><div class="line">     &#125;.bind(<span class="keyword">this</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br><br></p>
+<p>接下来是什么时候删除呢，当然是效果完成之后，也就是子组件render之后。</p>
+<p>所以我在子组件的componentDidMount函数中调用父组件的清除函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">componentDidMount: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">     setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">         <span class="keyword">this</span>.props.clearShadow();</div><div class="line">     &#125;.bind(<span class="keyword">this</span>), <span class="number">10000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为什么在componentDidMount函数中调用呢，这就要谈及到组件的生命周期了。</p>
+<p>这个可以查看<a href="https://facebook.github.io/react/docs/react-component.html" target="_blank" rel="external">官方文档</a></p>
+<p>我在这里提一下生命周期提供的API:</p>
+<ol>
+<li><p>getDefaultProps</p>
+<p>作用于组件类，只调用一次，返回对象用于设置默认的<code>props</code>，对于引用值，会在实例中共享</p>
+</li>
+<li><p>getInitialState</p>
+<p>作用于组件的实例，在实例创建时调用一次，用于初始化每个实例的<code>state</code>，此时可以访问<code>this.props</code></p>
+</li>
+<li><p>componentWillMount</p>
+<p>在完成首次渲染之前调用，此时仍可以修改组件的state</p>
+</li>
+<li><p>render</p>
+<p>必选的方法，创建虚拟DOM</p>
+</li>
+<li><p>componentDidMount</p>
+<p>真实的DOM被渲染出来后调用，在该方法中可访问到真实的DOM元素。此时已可以使用其他类库来操作这个DOM</p>
+</li>
+<li><p>componentWillReceiveProps</p>
+<p>组件接收到新的<code>props</code>时调用，并将其作为参数<code>nextProps</code>使用，此时可以更改组件<code>props</code>及<code>state</code></p>
+</li>
+<li><p>shouldComponentUpdate</p>
+<p>组件是否应当渲染新的<code>props</code>或<code>state</code>，返回<code>false</code>表示跳过后续的生命周期方法，通常不需要使用以避免出现bug。在出现应用的瓶颈时，可通过该方法进行适当的优化</p>
+</li>
+<li><p>componentWillUpdate</p>
+<p>接收到新的<code>props</code>或者<code>state</code>后，进行渲染之前调用，此时不允许更新<code>props</code>或<code>state</code></p>
+</li>
+<li><p>componentDidUpdate</p>
+<p>完成渲染新的<code>props</code>或者<code>state</code>后调用，此时可以访问到新的DOM元素</p>
+</li>
+<li><p>componentWillUnmount</p>
+<p>组件被移除之前被调用，可以用于做一些清理工作，在<code>componentDidMount</code>方法中添加的所有任务都需要在该方法中撤销，比如创建的定时器或添加的事件监听器</p>
+</li>
+</ol>
+<p><br><br></p>
+<p><br><br></p>
+<p>博客标题是React之通信，今天说的就是父组件和子组件之间通信，有如下两个方法：</p>
+<p>父组件调用子组件的方法：使用ref属性，子组件是一个DOM节点，可以通过<code>this.refs.[refName]</code> 就会返回这个真实的 DOM 节点。</p>
+<p>子组件调用父组件方法：使用props属性，就是我今天使用的方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">temp.push(<span class="xml"><span class="tag">&lt;<span class="name">Shadow</span> <span class="attr">clearShadow</span>=<span class="string">&#123;this.clearShadow()&#125;/</span>&gt;</span>);</span></div></pre></td></tr></table></figure>
+<p>然后就可以通过<code>this.props.clearShadow()</code>来调用了。</p>
+<p>完美~</p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -191,145 +259,88 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yuanjer.com/2017/03/21/React2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/20/Canvas/" class="archive-article-date">
-  	<time datetime="2017-03-20T13:34:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-20</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/20/Canvas/">Canvas</a>
-    </h1>
+  
+    <a href="/2017/03/20/Canvas/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Canvas</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">canvas</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/20/React/" class="archive-article-date">
-  	<time datetime="2017-03-20T11:00:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/20/React/">React</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">React-Router</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/19/My-first-blog/" class="archive-article-date">
-  	<time datetime="2017-03-19T09:05:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/19/My-first-blog/">My first blog</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">blog</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -352,8 +363,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
