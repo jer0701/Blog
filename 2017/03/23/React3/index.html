@@ -6,17 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yuanjer.com">
-  <title>Tag: React | Jer</title>
+  <title>React之扫盲 | Jer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="路途遥远，勿忘初心">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jer">
-<meta property="og:url" content="http://yuanjer.com/tags/React/index.html">
+  <meta name="description" content="学习React有一段时间了，React有一些细节还是要注意的。
+本文便于扫盲~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React之扫盲">
+<meta property="og:url" content="http://yuanjer.com/2017/03/23/React3/index.html">
 <meta property="og:site_name" content="Jer">
-<meta property="og:description" content="路途遥远，勿忘初心">
+<meta property="og:description" content="学习React有一段时间了，React有一些细节还是要注意的。
+本文便于扫盲~">
+<meta property="og:updated_time" content="2017-03-22T19:29:30.689Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jer">
-<meta name="twitter:description" content="路途遥远，勿忘初心">
+<meta name="twitter:title" content="React之扫盲">
+<meta name="twitter:description" content="学习React有一段时间了，React有一些细节还是要注意的。
+本文便于扫盲~">
   
     <link rel="alternative" href="/atom.xml" title="Jer" type="application/atom+xml">
   
@@ -150,36 +154,62 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-React3" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      React之扫盲
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/23/React3/" class="archive-article-date">
+
+        
+        <a href="/2017/03/23/React3/" class="archive-article-date">
   	<time datetime="2017-03-22T19:04:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-23</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/23/React3/">React之扫盲</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>学习React有一段时间了，React有一些细节还是要注意的。</p>
+<p>本文便于扫盲~</p>
+<a id="more"></a>
+<p>不多说废话，直接点出：</p>
+<ol>
+<li><p>React的核心是组件，那么第一个细节点是，组件类名<strong>第一个字母</strong>一定要<strong>大写</strong>，之前有过一篇文章提到过阮一峰老师的关于react入门教程，里面也提醒了这点，不过阮老师写的是：组件类的第一个字母必须大写，否则会报错。这里补充一下，不一定会报错，现代浏览器有很强的兼容性，这种可能不会报错，但是效果一定是显示不出来的。</p>
+<p>​</p>
+</li>
+<li><p>在render的时候，行内样式不再是一个字符串，它是一个{}对象，值需要用{}括起来。</p>
+<p>​</p>
+</li>
+<li><p>React在访问像素为单位的属性的时候，它会自动补全px，所以我们在添加的时候，可以省略单位px，这也方便了我们在组件类内部对这些属性的计算等。</p>
+<p>​</p>
+</li>
+<li><p>在组件中，所有的标签必须要有结束标签，例如img标签，一定要这样<code>&lt;img /&gt;</code>,不然就会报错，切记！</p>
+<p>​</p>
+</li>
+<li><p>render的时候只能有<strong>一个</strong>根节点，Only one!</p>
+<p>​</p>
+</li>
+<li><p>只有state改变了的时候，组件才会重新渲染，这个一般问题不大，这是React的核心算法。</p>
+<p>​</p>
+</li>
+<li><p>ref属性一般通过ReactDOM.findDOMNode方法来使用，查找真实的DOM节点。所有一般也在componentDidMount函数中使用ReactDOM.findDOMNode方法，因为这个时候DOM节点已经存在了。</p>
+</li>
+</ol>
+<p>个人能力暂时有限，目前只有这些。</p>
+<p>๑乛◡乛๑</p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -191,99 +221,88 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yuanjer.com/2017/03/23/React3/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/21/React2/" class="archive-article-date">
-  	<time datetime="2017-03-21T11:37:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-21</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/21/React2/">React之通信</a>
-    </h1>
+  
+    <a href="/2017/03/21/React2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">React之通信</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/20/React/" class="archive-article-date">
-  	<time datetime="2017-03-20T11:00:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/20/React/">React</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">React-Router</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -306,9 +325,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
