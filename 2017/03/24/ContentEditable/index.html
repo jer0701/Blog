@@ -6,17 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yuanjer.com">
-  <title>Tag: blog | Jer</title>
+  <title>浅谈富文本编辑 | Jer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="路途遥远，勿忘初心">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jer">
-<meta property="og:url" content="http://yuanjer.com/tags/blog/index.html">
+  <meta name="description" content="最近做的一个demo用到了富文本编辑，
+然后我使用React框架来重写这个demo，需要处理富文本编辑功能，就有了此文章">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈富文本编辑">
+<meta property="og:url" content="http://yuanjer.com/2017/03/24/ContentEditable/index.html">
 <meta property="og:site_name" content="Jer">
-<meta property="og:description" content="路途遥远，勿忘初心">
+<meta property="og:description" content="最近做的一个demo用到了富文本编辑，
+然后我使用React框架来重写这个demo，需要处理富文本编辑功能，就有了此文章">
+<meta property="og:updated_time" content="2017-03-24T09:25:26.716Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jer">
-<meta name="twitter:description" content="路途遥远，勿忘初心">
+<meta name="twitter:title" content="浅谈富文本编辑">
+<meta name="twitter:description" content="最近做的一个demo用到了富文本编辑，
+然后我使用React框架来重写这个demo，需要处理富文本编辑功能，就有了此文章">
   
     <link rel="alternative" href="/atom.xml" title="Jer" type="application/atom+xml">
   
@@ -150,64 +154,152 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-ContentEditable" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/19/My-first-blog/" class="archive-article-date">
-  	<time datetime="2017-03-19T09:05:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-19</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/19/My-first-blog/">My first blog</a>
+    <h1 class="article-title" itemprop="name">
+      浅谈富文本编辑
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/03/24/ContentEditable/" class="archive-article-date">
+  	<time datetime="2017-03-24T08:00:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近做的一个demo用到了富文本编辑，</p>
+<p>然后我使用React框架来重写这个demo，需要处理富文本编辑功能，就有了此文章</p>
+<a id="more"></a>
+<h3 id="说在前面的话"><a href="#说在前面的话" class="headerlink" title="说在前面的话"></a>说在前面的话</h3><p>富文本编辑，又称为WYSIWYG（What You See Is What You Get，所见即所得），</p>
+<p>该技术的本质，就是在页面中嵌入一个包含空HTML页面的iframe。</p>
+<p>JavaScript实现富文本有两种方式，一种是使用<code>iframe</code>元素，另一种是使用<code>contenteditable</code>属性，本文讲的是后一种方法。</p>
+<p><br></p>
+<h3 id="使用contenteditable属性"><a href="#使用contenteditable属性" class="headerlink" title="使用contenteditable属性"></a>使用contenteditable属性</h3><p>可以把<code>contenteditable</code>属性应用给页面的任何元素，然后用户立即就可以编辑该元素。这种方法很受欢迎，因为它不需要iframe、空白页和JavaScript，只要为元素设置<code>contenteditable</code>属性即可，如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"editable"</span> <span class="attr">contenteditable</span>==<span class="string">"true"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><code>contenteditable</code>属性有三个可能的值：“true”表示打开、“false”表示关闭、“inherit”表示可以从父元素那里继承。</p>
+<p><br></p>
+<h3 id="React中使用"><a href="#React中使用" class="headerlink" title="React中使用"></a>React中使用</h3><p>我在重写demo的时候是将可编辑的div做成react控件，以此达到目的。</p>
+<p>代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ContentEditable = React.createClass(&#123;</div><div class="line">            <span class="attr">shouldComponentUpdate</span>: <span class="function"><span class="keyword">function</span>(<span class="params">nextProps</span>)</span>&#123;</div><div class="line">                <span class="keyword">return</span> nextProps.html !== ReactDOM.findDOMNode(<span class="keyword">this</span>).innerHTML;</div><div class="line">            &#125;,</div><div class="line"></div><div class="line">            <span class="attr">editChange</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="keyword">var</span> html = ReactDOM.findDOMNode(<span class="keyword">this</span>).innerHTML;</div><div class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>.props.onChange &amp;&amp; html !== <span class="keyword">this</span>.lastHtml) &#123;</div><div class="line"></div><div class="line">                    <span class="keyword">this</span>.props.onChange(&#123;</div><div class="line">                        <span class="attr">target</span>: &#123;</div><div class="line">                            <span class="attr">value</span>: html</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">this</span>.lastHtml = html;</div><div class="line">            &#125;,</div><div class="line"></div><div class="line">            <span class="attr">render</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"t_contant"</span></span></span></div><div class="line">                    <span class="attr">onInput</span>=<span class="string">&#123;this.editChange&#125;</span></div><div class="line">                    <span class="attr">onBlur</span>=<span class="string">&#123;this.editChange&#125;</span></div><div class="line">                    <span class="attr">contentEditable</span>=<span class="string">"true"</span></div><div class="line">                    <span class="attr">dangerouslySetInnerHTML</span>=<span class="string">&#123;&#123;__html:</span> 		<span class="attr">this.props.html</span>&#125;&#125;&gt;<span class="tag">&lt;/<span class="name">div</span>&gt;</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
+<p>由于<code>div</code>标签没有onChange事件，所以需要用onInput和onBlur来代替。</p>
+<p>dangerouslySetInnerHTML是React特有的属性，用于提供插入纯 HTML 字符串的功能。</p>
+<p>好的，基于以上控件，可编辑的div可用于React中。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">blog</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">contenteditable</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yuanjer.com/2017/03/24/ContentEditable/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/03/23/React3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">React之扫盲</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-    
+
 
 
           </div>
@@ -230,9 +322,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
