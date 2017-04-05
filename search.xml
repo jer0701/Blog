@@ -4,6 +4,55 @@
   
     
     <entry>
+      <title><![CDATA[HTTP学习]]></title>
+      <url>http://yuanjer.com/2017/04/05/HTTP/</url>
+      <content type="html"><![CDATA[<p>HTTP（Hypertext Transfer Protocol，超文本传输协议）是在万维网上进行通信时所使用的协议方案，是一个应用层协议。</p>
+<p>前端必不可少的需要了解到它。</p>
+<a id="more"></a>
+<p>关于HTTP的内容有很多，如URI、HTTP事务、HTTP报文、HTTP连接等。</p>
+<p>抛开其他，本文只对HTTP连接先进行赘述。</p>
+<p><br></p>
+<h4 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h4><p>HTTP是个应用层协议，它无需操心网络通信的具体细节，它把联网的细节都交给了通用、可靠的因特网传输协议TCP/IP</p>
+<p>TCP（Transmission Control Protocol，传输控制协议）提供了：</p>
+<ul>
+<li>无差错的数据传输；</li>
+<li>按序传输（数据总是会按照发送的顺序到达）；</li>
+<li>未分段的数据流（可以在任意时刻以任意尺寸将数据发送出去）。</li>
+</ul>
+<p>在客户端向服务器发送报文之前，需要用网际协议（Internet Protocol，IP）地址和端口号在客户端和服务器之间建立一条TCP/IP连接。只要建立了TCP连接，客户端和服务器之间的报文交换就不会丢失，不会被破坏，也不会在接收时出现错序。</p>
+<p><br></p>
+<h4 id="TCP连接"><a href="#TCP连接" class="headerlink" title="TCP连接"></a>TCP连接</h4><p>HTTP连接实际上就是TCP连接。TCP为HTTP提供了一条<em>可靠的比特传输管道</em>。从TCP连接一端填入的字节会从另一端以原有的顺序、正确地传送出来。</p>
+<h5 id="TCP流"><a href="#TCP流" class="headerlink" title="TCP流"></a>TCP流</h5><p>TCP的数据是通过IP数据报的小数据块来发送的。HTTP要传送一条报文时，会以流的形式将报文数据的内容通过一条打开的TCP连接按序传输。TCP接收到数据流之后，会将数据流砍成被称作段的小数据块，并将段封装在IP数据报中，通过因特网传输。</p>
+<p>每个TCP段都是有IP数据报承载，从一个IP地址发送到另一个IP地址。IP数据报包括：</p>
+<ul>
+<li>一个IP数据报首部</li>
+<li>一个TCP段首部</li>
+<li>一个TCP数据块</li>
+</ul>
+<p>IP首部包含了源和目的的IP地址、长度和其他一些标记。TCP段的首部包含了TCP端口号、TCP控制标记、以及用于数据排序和完整性检查的一些数字值。</p>
+<h5 id="TCP连接-1"><a href="#TCP连接-1" class="headerlink" title="TCP连接"></a>TCP连接</h5><p>TCP采用三次握手建立一个连接：</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/305779/2011062613192683.jpg" alt="三次握手"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">第一次握手：建立连接时,客户端发送SYN（synchronous）包(SYN=J)到服务器,并进入SYN_SEND状态,等待服务器确认；</div><div class="line"></div><div class="line">第二次握手：服务器收到SYN包,必须确认客户的SYN（ack=J+1）,同时自己也发送一个SYN包（SYN=K）,即SYN+ACK包,此时服务器进入SYN_RECV状态；</div><div class="line"></div><div class="line">第三次握手：客户端收到服务器的SYN＋ACK包,向服务器发送确认包ACK(ack=K+1),此包发送完毕,客户端和服务器进入ESTABLISHED状态,完成三次握手.</div></pre></td></tr></table></figure>
+<p>三次握手完成，客户端与服务器开始传送数据</p>
+<p>TCP四次挥手断开连接：</p>
+<p><img src="http://pic002.cnblogs.com/images/2011/305779/2011062613210341.jpg" alt="四次挥手"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">客户端发送一个FIN（finish） M，用来关闭客户到服务器的数据传送</div><div class="line"></div><div class="line">服务器收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。</div><div class="line"></div><div class="line">服务器关闭与客户端的连接，发送一个FIN N给客户端。</div><div class="line"></div><div class="line">客户端发回ACK报文确认，并将确认序号设置为收到序号加1</div></pre></td></tr></table></figure>
+<p>通过上述连接过程可以看出，TCP连接是需要时间的，所以减少HTTP请求一方面也是减少TCP连接的次数，节约了时间。</p>
+<h6 id="PS：图片来源网络，侵删。"><a href="#PS：图片来源网络，侵删。" class="headerlink" title="PS：图片来源网络，侵删。"></a>PS：图片来源网络，侵删。</h6><p>本文参考HTTP权威指南一书。</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> HTTP </tag>
+            
+            <tag> TCP/IP </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[浅谈富文本编辑]]></title>
       <url>http://yuanjer.com/2017/03/24/ContentEditable/</url>
       <content type="html"><![CDATA[<p>最近做的一个demo用到了富文本编辑，</p>
